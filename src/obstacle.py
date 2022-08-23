@@ -26,5 +26,5 @@ class Usb(pygame.sprite.Sprite):
             self.kill() 
 
     def update(self):
-        self.rect.x -= 5
+        self.rect.x -= 3
         self.destroy()
