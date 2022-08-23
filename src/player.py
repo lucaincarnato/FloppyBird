@@ -17,12 +17,13 @@ class Floppy(pygame.sprite.Sprite):
 
         self.image = self.floppy[self.floppy_index]
         self.rect = self.image.get_rect(center = (100,300))
+        self.mask = pygame.mask.from_surface(self.image)
 
     # Method to enable jumping and gravity
     def motion(self):
         # If mouse pressed floppy jumps
         if pygame.mouse.get_pressed()[0] and self.rect.bottom <= 600:
-            self.gravity = -3
+            self.gravity = -5
         
         # The gravity will increment at each update, changing the y pos of the flappy and falling faster the more we fall
         self.gravity += 0.3
