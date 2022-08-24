@@ -13,43 +13,9 @@ def collision():
             return False
     return True
 
-# Function to dipslay the menu
-def menu():
-    # Messages for the main page
-    title_font = pygame.font.Font('Assets/titlefont.ttf',90)
-    title_surf = title_font.render('Floppy Bird',False,(31,30,30))
-    title_rect = title_surf.get_rect(center = (200,230))
-
-    # Icon of the game
-    icon_surface = pygame.image.load('Assets/floppy/floppy1.png').convert_alpha()
-    icon_surface = pygame.transform.rotozoom(icon_surface,0,2)
-    icon_rectangle = icon_surface.get_rect(center = (200,370))
-
-    # Istruction in case score != 0
-    istruction_font = pygame.font.Font('Assets/titlefont.ttf',50)
-    istruction_surf = istruction_font.render('Press space to play',False,(0,0,0))
-    istruction_rect = istruction_surf.get_rect(center = (200,475))
-
-    # Credits
-    credit_font = pygame.font.Font('Assets/titlefont.ttf',23)
-    credit_surf = credit_font.render('Made by Luca Maria Incarnato',False,(0,0,0))
-    credit_rect = credit_surf.get_rect(midbottom = (200,680))
-
-    # USB image for the main page
-    usb_image = pygame.image.load('Assets/usb/usb4.png').convert_alpha()
-    usb_image = pygame.transform.rotozoom(usb_image,0,2)
-    usb_image_rect = usb_image.get_rect(center = (200,350))
-
-    screen.fill((171,205,239))
-    screen.blit(usb_image,usb_image_rect)
-    screen.blit(title_surf,title_rect)
-    screen.blit(icon_surface,icon_rectangle)
-    screen.blit(istruction_surf,istruction_rect)
-    screen.blit(credit_surf,credit_rect)
-
 # Function to register the score
 def score_detection():
-    # Score
+    # Score in the game
     score_font = pygame.font.Font('Assets/scorefont.ttf',90)
     score_surf = score_font.render(f'{score}',False,(0,0,0))
     score_rect = score_surf.get_rect(center = (200,75))
@@ -58,11 +24,20 @@ def score_detection():
     if pygame.sprite.spritecollide(floppy.sprite,usb,False):
         return 1
     return 0
+
+# Method to display the score in the main page
+def score_main():
+    score_font_main = pygame.font.Font('Assets/titlefont.ttf',90)
+    score_surf_main = score_font_main.render(f'{score}',False,(0,0,0))
+    score_rect_main = score_surf_main.get_rect(center = (200,230))
+    screen.blit(score_surf_main,score_rect_main)
     
 
 pygame.init()
 screen = pygame.display.set_mode((400,700))
+game_icon = pygame.image.load('Assets/icon.png')
 pygame.display.set_caption('Floppy bird')
+pygame.display.set_icon(game_icon)
 clock = pygame.time.Clock()
 score = 0
 collision_score = 0
@@ -71,6 +46,31 @@ game_state = False
 # Sky and Ground surface
 sky = pygame.image.load('Assets/sky.png').convert()
 ground = pygame.image.load('Assets/ground.png').convert()
+
+# Messages for the main page
+title_font = pygame.font.Font('Assets/titlefont.ttf',90)
+title_surf = title_font.render('Floppy Bird',False,(31,30,30))
+title_rect = title_surf.get_rect(center = (200,230))
+
+# Icon of the game
+icon_surface = pygame.image.load('Assets/floppy/floppy1.png').convert_alpha()
+icon_surface = pygame.transform.rotozoom(icon_surface,0,2)
+icon_rectangle = icon_surface.get_rect(center = (200,370))
+
+# Istruction in case score != 0
+istruction_font = pygame.font.Font('Assets/titlefont.ttf',50)
+istruction_surf = istruction_font.render('Press space to play',False,(0,0,0))
+istruction_rect = istruction_surf.get_rect(center = (200,475))
+
+# Credits
+credit_font = pygame.font.Font('Assets/titlefont.ttf',23)
+credit_surf = credit_font.render('Made by Luca Maria Incarnato',False,(0,0,0))
+credit_rect = credit_surf.get_rect(midbottom = (200,680))
+
+# USB image for the main page
+usb_image = pygame.image.load('Assets/usb/usb4.png').convert_alpha()
+usb_image = pygame.transform.rotozoom(usb_image,0,2)
+usb_image_rect = usb_image.get_rect(center = (200,350))
 
 # Initializing the floppy Sprite Group
 floppy = pygame.sprite.GroupSingle()
@@ -94,9 +94,11 @@ while True:
             if event.type == obstacle_timer:
                 usb.add(Usb())
         else:
-            # It should be mouse 
+            # If pressed space 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                # The game will be activated and score will be zero
                 game_state = True
+                score = 0
 
     if game_state:
         # Sky and Ground on screen
@@ -121,9 +123,17 @@ while True:
             collision_score = 0
 
     else: 
-        menu()
-        score = 0
+        # Finished the game the collision score goes to zero for the next game
         collision_score = 0
+        screen.fill((171,205,239))
+        screen.blit(usb_image,usb_image_rect)
+        if score == 0:
+            screen.blit(title_surf,title_rect)
+        else:
+            score_main()
+        screen.blit(icon_surface,icon_rectangle)
+        screen.blit(istruction_surf,istruction_rect)
+        screen.blit(credit_surf,credit_rect)
 
     pygame.display.update()
     clock.tick(60)
