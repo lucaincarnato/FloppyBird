@@ -39,12 +39,12 @@ ground = pygame.image.load('Assets/ground.png').convert()
 # Messages for the main page
 title_font = pygame.font.Font('Assets/titlefont.ttf',90)
 title_surf = title_font.render('Floppy Bird',False,(31,30,30))
-title_rect = title_surf.get_rect(center = (200,120))
+title_rect = title_surf.get_rect(center = (200,230))
 
 # Icon of the game
 icon_surface = pygame.image.load('Assets/floppy/floppy1.png').convert_alpha()
 icon_surface = pygame.transform.rotozoom(icon_surface,0,2)
-icon_rectangle = icon_surface.get_rect(center = (200,300))
+icon_rectangle = icon_surface.get_rect(center = (200,370))
 
 # Score for the main page's message
 score_message_surf = title_font.render(f'{score}',False,(0,0,0))
@@ -53,12 +53,17 @@ score_message_rect = score_message_surf.get_rect(center = (200,470))
 # Istruction in case score != 0
 istruction_font = pygame.font.Font('Assets/titlefont.ttf',50)
 istruction_surf = istruction_font.render('Press space to play',False,(0,0,0))
-istruction_rect = istruction_surf.get_rect(center = (200,450))
+istruction_rect = istruction_surf.get_rect(center = (200,475))
 
 # Credits
-credit_font = pygame.font.Font('Assets/titlefont.ttf',30)
+credit_font = pygame.font.Font('Assets/titlefont.ttf',23)
 credit_surf = credit_font.render('Made by Luca Maria Incarnato',False,(0,0,0))
-credit_rect = credit_surf.get_rect(midbottom = (200,670))
+credit_rect = credit_surf.get_rect(midbottom = (200,680))
+
+# USB image for the main page
+usb_image = pygame.image.load('Assets/usb/usb4.png').convert_alpha()
+usb_image = pygame.transform.rotozoom(usb_image,0,2)
+usb_image_rect = usb_image.get_rect(center = (200,350))
 
 
 # Initializing the floppy Sprite Group
@@ -107,7 +112,8 @@ while True:
         # Changing the game state depending on collisions
         game_state = collision()
     else: 
-        screen.fill((192,203,220))
+        screen.fill((171,205,239))
+        screen.blit(usb_image,usb_image_rect)
         screen.blit(title_surf,title_rect)
         screen.blit(icon_surface,icon_rectangle)
         screen.blit(istruction_surf,istruction_rect)
