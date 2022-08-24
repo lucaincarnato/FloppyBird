@@ -13,58 +13,64 @@ def collision():
             return False
     return True
 
-# Function to detect the score 
+# Function to dipslay the menu
+def menu():
+    # Messages for the main page
+    title_font = pygame.font.Font('Assets/titlefont.ttf',90)
+    title_surf = title_font.render('Floppy Bird',False,(31,30,30))
+    title_rect = title_surf.get_rect(center = (200,230))
+
+    # Icon of the game
+    icon_surface = pygame.image.load('Assets/floppy/floppy1.png').convert_alpha()
+    icon_surface = pygame.transform.rotozoom(icon_surface,0,2)
+    icon_rectangle = icon_surface.get_rect(center = (200,370))
+
+    # Istruction in case score != 0
+    istruction_font = pygame.font.Font('Assets/titlefont.ttf',50)
+    istruction_surf = istruction_font.render('Press space to play',False,(0,0,0))
+    istruction_rect = istruction_surf.get_rect(center = (200,475))
+
+    # Credits
+    credit_font = pygame.font.Font('Assets/titlefont.ttf',23)
+    credit_surf = credit_font.render('Made by Luca Maria Incarnato',False,(0,0,0))
+    credit_rect = credit_surf.get_rect(midbottom = (200,680))
+
+    # USB image for the main page
+    usb_image = pygame.image.load('Assets/usb/usb4.png').convert_alpha()
+    usb_image = pygame.transform.rotozoom(usb_image,0,2)
+    usb_image_rect = usb_image.get_rect(center = (200,350))
+
+    screen.fill((171,205,239))
+    screen.blit(usb_image,usb_image_rect)
+    screen.blit(title_surf,title_rect)
+    screen.blit(icon_surface,icon_rectangle)
+    screen.blit(istruction_surf,istruction_rect)
+    screen.blit(credit_surf,credit_rect)
+
+# Function to register the score
 def score_detection():
-    # Score for the game
+    # Score
     score_font = pygame.font.Font('Assets/scorefont.ttf',90)
     score_surf = score_font.render(f'{score}',False,(0,0,0))
     score_rect = score_surf.get_rect(center = (200,75))
     screen.blit(score_surf,score_rect)
+    # The collision will return True for the entire time the two sprite have contact
     if pygame.sprite.spritecollide(floppy.sprite,usb,False):
         return 1
     return 0
-
+    
 
 pygame.init()
 screen = pygame.display.set_mode((400,700))
 pygame.display.set_caption('Floppy bird')
 clock = pygame.time.Clock()
 score = 0
+collision_score = 0
 game_state = False
 
 # Sky and Ground surface
 sky = pygame.image.load('Assets/sky.png').convert()
 ground = pygame.image.load('Assets/ground.png').convert()
-
-# Messages for the main page
-title_font = pygame.font.Font('Assets/titlefont.ttf',90)
-title_surf = title_font.render('Floppy Bird',False,(31,30,30))
-title_rect = title_surf.get_rect(center = (200,230))
-
-# Icon of the game
-icon_surface = pygame.image.load('Assets/floppy/floppy1.png').convert_alpha()
-icon_surface = pygame.transform.rotozoom(icon_surface,0,2)
-icon_rectangle = icon_surface.get_rect(center = (200,370))
-
-# Score for the main page's message
-score_message_surf = title_font.render(f'{score}',False,(0,0,0))
-score_message_rect = score_message_surf.get_rect(center = (200,470))
-
-# Istruction in case score != 0
-istruction_font = pygame.font.Font('Assets/titlefont.ttf',50)
-istruction_surf = istruction_font.render('Press space to play',False,(0,0,0))
-istruction_rect = istruction_surf.get_rect(center = (200,475))
-
-# Credits
-credit_font = pygame.font.Font('Assets/titlefont.ttf',23)
-credit_surf = credit_font.render('Made by Luca Maria Incarnato',False,(0,0,0))
-credit_rect = credit_surf.get_rect(midbottom = (200,680))
-
-# USB image for the main page
-usb_image = pygame.image.load('Assets/usb/usb4.png').convert_alpha()
-usb_image = pygame.transform.rotozoom(usb_image,0,2)
-usb_image_rect = usb_image.get_rect(center = (200,350))
-
 
 # Initializing the floppy Sprite Group
 floppy = pygame.sprite.GroupSingle()
@@ -92,7 +98,6 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_state = True
 
-
     if game_state:
         # Sky and Ground on screen
         screen.blit(sky,(0,0))
@@ -106,19 +111,19 @@ while True:
         usb.draw(screen)
         usb.update()
 
-        # Updating the score 
-        score += score_detection()
-
         # Changing the game state depending on collisions
         game_state = collision()
+        # The function will increment the collision score up to 91/92
+        collision_score += score_detection()
+        # When collision score is 91, so the collision is finished, the score will increment and the collision score goes to zero
+        if collision_score == 91:
+            score += 1
+            collision_score = 0
+
     else: 
-        screen.fill((171,205,239))
-        screen.blit(usb_image,usb_image_rect)
-        screen.blit(title_surf,title_rect)
-        screen.blit(icon_surface,icon_rectangle)
-        screen.blit(istruction_surf,istruction_rect)
-        screen.blit(credit_surf,credit_rect)
+        menu()
         score = 0
+        collision_score = 0
 
     pygame.display.update()
     clock.tick(60)
