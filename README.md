@@ -6,6 +6,8 @@ The difference between the two games only involves the design of the player: pla
 
 Following the general theme of the game, the obstacles are trasformed, from the tubes of the original version, into usb emphasizing the generational distance between floppy disk and usb.
 
+Every asset of the game is self made with a tablet and not so much experience in pixel art. The music is absent due to lack of knowledge in music production.
+
 ## How to play Floppy Bird
 
 The game is actually available only on desktop and to run it the computer needs to have installed both [Python 3.x](https://www.python.org/downloads/) and [Pygame 2.1.2](https://www.pygame.org/download.shtml). After installed the dependencies and cloned the repository, the only thing to do to run the game is to run the [main.py](https://github.com/lucaincarnato/floppy-bird/blob/main/src/main.py) file.
