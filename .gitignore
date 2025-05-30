@@ -1,1 +1,139 @@
-**/.DS_Store
+# =============================================== #
+# Unity specific Ignores (Aggiornato per Unity 6) #
+# =============================================== #
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Bb]uildReport/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Uu]ser[Ss]ettings/
+/[Gg]radle/
+
+# File generati automaticamente da Unity
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# File di crash e diagnostici
+sysinfo.txt
+*.log
+*.stackdump
+error.log
+UploadedCrashReports/
+
+# Asset Store e pacchetti
+/[Aa]ssets/AssetStoreTools*
+**/Packages/packages-lock.json
+
+# Addressables (ignora dati packed, mantieni impostazioni)
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*.bin*
+
+# StreamingAssets temporanei
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/
+
+# =============================================== #
+# File generati da IDE e strumenti               #
+# =============================================== #
+# JetBrains Rider
+.idea/
+*.idea/
+/[Aa]ssets/Plugins/Editor/JetBrains*
+*.sln.iml
+
+# Visual Studio
+.vs/
+.vscode/
+*.vcxproj*
+*.filters
+
+# Altri IDE
+.consulo/
+*.consulo
+*.sublime-project
+*.sublime-workspace
+
+# =============================================== #
+# File di sistema e OS specific                  #
+# =============================================== #
+.DS_Store
+*.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# =============================================== #
+# File di build e distribuzione                  #
+# =============================================== #
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.dmg
+*.msi
+*.ipa
+*.pkg
+crashlytics-build.properties
+
+# WebGL
+/[Ww]ebGL/
+
+# Android specific
+*.keystore
+*.androidproj
+local.properties
+
+# iOS specific
+**/iOS/
+**/iPhone/
+**/iPhoneSimulator/
+*.xcodeproj
+project.xcworkspace/
+xcuserdata/
+
+# =============================================== #
+# File di progetto Unity (ECCEZIONI IMPORTANTI)  #
+# =============================================== #
+# Mantieni impostazioni progetto e asset principali
+!/[Pp]rojectSettings/
+!/[Aa]ssets/
+!/[Pp]ackages/manifest.json
+
+# Ignora tutti i .meta tranne quelli in Assets e ProjectSettings
+# (Modificato per maggiore sicurezza)
+*.meta
+!**/[Aa]ssets/**/*.meta
+!**/[Pp]rojectSettings/**/*.meta
+
+# Permetti file di progetto base (Unity 6+)
+!/*.asset
+!/*.unity
+
+# =============================================== #
+# Altri file temporanei                          #
+# =============================================== #
+*.tmp
+*.bak
+*.orig
+*~
+*.swp
+*.swo
